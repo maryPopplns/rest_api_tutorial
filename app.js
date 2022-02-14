@@ -4,9 +4,6 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-
 const app = express();
 
 app.set('views', path.join(__dirname, 'views'));
@@ -18,8 +15,21 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.get('/', (req, res) => {
+  return res.send('Received a GET HTTP method');
+});
+
+app.post('/', (req, res) => {
+  return res.send('Received a POST HTTP method');
+});
+
+app.put('/', (req, res) => {
+  return res.send('Received a PUT HTTP method');
+});
+
+app.delete('/', (req, res) => {
+  return res.send('Received a DELETE HTTP method');
+});
 
 app.use(function (req, res, next) {
   next(createError(404));
